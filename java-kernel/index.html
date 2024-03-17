@@ -4,42 +4,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CodeMirror Syntax Highlighting</title>
+    <title>Jupyter-like IDE</title>
+    <link rel="stylesheet" href="styles.css">
+
     <link rel="stylesheet" href="node_modules/codemirror/lib/codemirror.css">
     <script src="node_modules/codemirror/lib/codemirror.js"></script>
     <script src="node_modules/codemirror/mode/clike/clike.js"></script> <!-- Example: Java syntax mode -->
 </head>
 <body>
-    <h1>CodeMirror Syntax Highlighting</h1>
-    <textarea id="code" rows="10" cols="50"></textarea>
-    <div id="output"></div>
-
-    <script>
-        const codeMirror = CodeMirror.fromTextArea(document.getElementById('code'), {
-            lineNumbers: true,
-            mode: 'text/x-java', // Set mode to Java for syntax highlighting
-            theme: 'default'
-        });
-
-        // Add event listener to update output when code changes
-        codeMirror.on('change', (editor) => {
-            const code = editor.getValue();
-            // Send code to server for execution and display output
-            fetch('/execute', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'text/plain'
-                },
-                body: code
-            })
-            .then(response => response.text())
-            .then(output => {
-                document.getElementById('output').innerHTML = output;
-            })
-            .catch(error => {
-                console.error('Error executing code:', error);
-            });
-        });
-    </script>
+    <h1>Jupyter-like IDE</h1>
+    
+    <!-- Container for code cells -->
+    <div id="cell-container"></div>
+    
+    <!-- Button to add new code cell -->
+    <button id="add-cell">Add Cell</button>
+    
+    <!-- Script to handle code execution -->
+    <script src="script.js"></script>
 </body>
 </html>
